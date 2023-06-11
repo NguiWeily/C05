@@ -1,0 +1,38 @@
+Files to turn in : ft_iterative_power.c
+Allowed functions : None
+
+• Create an iterated function that returns the value of a power applied to a number.
+An power lower than 0 returns 0. Overflows must not be handled.
+• We’ve decided that 0 power 0 will returns 1
+• Here’s how it should be prototyped :
+int ft_iterative_power(int nb, int power);
+
+Here's an implementation of the `ft_iterative_power` function that calculates the value of a number raised to a given power using iteration:
+
+```c
+int ft_iterative_power(int nb, int power)
+{
+    int result = 1;
+
+    if (power < 0)
+        return 0;
+
+    while (power > 0)
+    {
+        result *= nb;
+        power--;
+    }
+
+    return result;
+}
+```
+
+In this implementation, the `ft_iterative_power` function takes two integers as parameters: `nb` and `power`. It calculates the value of `nb` raised to the power of `power` iteratively.
+
+If the power is less than 0, the function returns 0 because negative powers are not supported.
+
+The function initializes a variable `result` to 1. It then uses a `while` loop to multiply `result` by `nb` repeatedly, reducing the `power` by 1 in each iteration until the power becomes 0.
+
+Finally, the calculated result is returned.
+
+Please note that this implementation does not handle overflow cases, and the return value will be undefined if the result exceeds the range of an integer. Also, according to the specification, 0 raised to the power of 0 is considered to be 1.
