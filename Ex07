@@ -1,0 +1,50 @@
+Files to turn in : ft_find_next_prime.c
+Allowed functions : None
+
+• Create a function that returns the next prime number greater or equal to the number
+given as argument.
+• Here’s how it should be prototyped :
+int ft_find_next_prime(int nb);
+
+Here's an implementation of the `ft_find_next_prime` function that finds the next prime number greater than or equal to the given number:
+
+```c
+int ft_is_prime(int nb)
+{
+    if (nb <= 1) {
+        return 0; // 0 and 1 are not prime
+    }
+
+    for (int i = 2; i * i <= nb; i++) {
+        if (nb % i == 0) {
+            return 0; // found a divisor, number is not prime
+        }
+    }
+
+    return 1; // no divisors found, number is prime
+}
+
+int ft_find_next_prime(int nb)
+{
+    if (nb <= 1) {
+        return 2; // 2 is the smallest prime number
+    }
+
+    int next = nb;
+    while (!ft_is_prime(next)) {
+        next++;
+    }
+
+    return next;
+}
+```
+
+In this implementation, the `ft_find_next_prime` function takes an integer `nb` as a parameter and returns the next prime number greater than or equal to `nb`.
+
+The function first checks if `nb` is less than or equal to 1. In this case, it immediately returns 2 since 2 is the smallest prime number.
+
+Next, the function initializes a variable `next` with the value of `nb`. It then enters a loop that increments `next` until it finds the next prime number. This is done by repeatedly calling the `ft_is_prime` function, which checks if a number is prime. Once a prime number is found, the loop terminates, and the function returns that prime number.
+
+Please note that the `ft_is_prime` function is the same as the one described in the previous response. It is used within the `ft_find_next_prime` function to determine if a number is prime.
+
+Also, please note that this implementation assumes the input number `nb` is an integer greater than or equal to 0.
