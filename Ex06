@@ -1,0 +1,36 @@
+Files to turn in : ft_is_prime.c
+Allowed functions : None
+
+• Create a function that returns 1 if the number given as a parameter is a prime
+number, and 0 if it isn’t.
+• Here’s how it should be prototyped :
+int ft_is_prime(int nb);
+
+Here's an implementation of the `ft_is_prime` function that checks if a number is prime:
+
+```c
+int ft_is_prime(int nb)
+{
+    if (nb <= 1) {
+        return 0; // 0 and 1 are not prime
+    }
+
+    for (int i = 2; i * i <= nb; i++) {
+        if (nb % i == 0) {
+            return 0; // found a divisor, number is not prime
+        }
+    }
+
+    return 1; // no divisors found, number is prime
+}
+```
+
+In this implementation, the `ft_is_prime` function takes an integer `nb` as a parameter and returns 1 if `nb` is a prime number, and 0 if it is not.
+
+The function first checks if the number is less than or equal to 1, in which case it returns 0 since 0 and 1 are not prime numbers.
+
+Next, the function iterates from 2 up to the square root of `nb` and checks if `nb` is divisible by any of these numbers. If a divisor is found, the function immediately returns 0, indicating that `nb` is not a prime number.
+
+If the loop completes without finding any divisors, the function returns 1, indicating that `nb` is a prime number.
+
+Please note that this implementation assumes the input number `nb` is an integer greater than or equal to 0.
