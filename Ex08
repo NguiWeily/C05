@@ -1,0 +1,106 @@
+Files to turn in : ft_ten_queens_puzzle.c
+Allowed functions : write
+
+• Create a function that displays all possible placements of the ten queens on a
+chessboard which would contain ten columns and ten lines, without them being
+able to reach each other in a single move, and returns the number of possibilities.
+• Recursivity is required to solve this problem.
+• Here’s how it should be prototyped :
+int ft_ten_queens_puzzle(void);
+
+• Here’s how it’ll be displayed :
+$>./a.out | cat -e
+0257948136$
+0258693147$
+...
+4605713829$
+4609582731$
+...
+9742051863$
+$>
+• The sequence goes from left to right. The first digit represents the first Queen’s
+position in the first column (the index starting from 0). The Nth digit represents
+the Nth Queen’s position in the Nth column.
+• The return value must be the total number of displayed solutions.
+
+The problem of placing ten queens on a chessboard without them being able to reach each other in a single move is known as the "Ten Queens Puzzle." Solving this problem requires using backtracking and recursion to explore all possible valid placements.
+
+Here's an implementation of the `ft_ten_queens_puzzle` function that solves the puzzle and displays all possible solutions:
+
+```c
+#include <unistd.h>
+
+#define SIZE 10
+
+int ft_abs(int n)
+{
+    return (n < 0) ? -n : n;
+}
+
+int ft_is_valid(int board[], int row, int col)
+{
+    for (int i = 0; i < row; i++) {
+        if (board[i] == col || ft_abs(board[i] - col) == ft_abs(i - row)) {
+            return 0; // two queens threaten each other
+        }
+    }
+    return 1; // position is valid
+}
+
+void ft_print_solution(int board[])
+{
+    char c;
+    for (int i = 0; i < SIZE; i++) {
+        c = board[i] + '0';
+        write(1, &c, 1);
+    }
+    write(1, "\n", 1);
+}
+
+void ft_solve_queens(int board[], int row, int *count)
+{
+    if (row == SIZE) {
+        ft_print_solution(board);
+        (*count)++;
+        return;
+    }
+
+    for (int col = 0; col < SIZE; col++) {
+        if (ft_is_valid(board, row, col)) {
+            board[row] = col;
+            ft_solve_queens(board, row + 1, count);
+        }
+    }
+}
+
+int ft_ten_queens_puzzle(void)
+{
+    int board[SIZE] = {0}; // initialize the board with all queens in the first row
+    int count = 0; // counter for the number of solutions
+
+    ft_solve_queens(board, 0, &count);
+
+    return count;
+}
+```
+
+In this implementation, the `ft_ten_queens_puzzle` function uses backtracking and recursion to solve the Ten Queens Puzzle. It takes no parameters and returns the total number of valid solutions.
+
+The function starts by initializing an array `board` with all queens placed in the first row (initially set to 0 for each column).
+
+The `ft_is_valid` function checks if a given position is valid for placing a queen. It iterates through the previous rows of the board and checks for any conflicts with the current position. If there is a conflict, it returns 0; otherwise, it returns 1.
+
+The `ft_print_solution` function is responsible for displaying a valid solution by printing the digits representing the queen positions.
+
+The `ft_solve_queens` function is the recursive function that explores all possible valid placements of the queens on the chessboard. It starts from the first row and iterates through each column, checking if a position is valid and recursively calling itself for the next row. Once it reaches the last row, it prints the solution and increments the count of valid solutions.
+
+Finally, the `ft_ten_queens_puzzle` function initializes the board, calls `ft_solve_queens` to find all solutions, and returns the count of valid solutions.
+
+To compile and run the code, you can use the following command:
+
+```shell
+gcc ft_ten_queens_puzzle.c -o ten_queens_puzzle
+./ten_queens_puzzle
+```
+
+The solutions will be displayed on the terminal, and the return value will be the total number of valid solutions.
